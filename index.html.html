@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ayza 💗 | Mood Detector</title>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap');
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(120deg, #ffd6e7, #fff2fa, #ffe6f4);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        animation: bgGradient 12s infinite alternate;
+    }
+
+    @keyframes bgGradient {
+        0% { background: linear-gradient(120deg, #ffd6e7, #fff2fa, #ffe6f4); }
+        50% { background: linear-gradient(120deg, #ffe6f4, #fff2fa, #ffd6e7); }
+        100% { background: linear-gradient(120deg, #ffd6e7, #fff2fa, #ffe6f4); }
+    }
+
+    .card {
+        width: 90%;
+        max-width: 420px;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 32px;
+        border-radius: 26px;
+        box-shadow: 0 12px 40px rgba(255, 120, 160, 0.3);
+        text-align: center;
+        backdrop-filter: blur(14px);
+        position: relative;
+        animation: floatCard 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-10px); }
+    }
+
+    h2 {
+        color: #ff4d88;
+        margin-bottom: 5px;
+        font-size: 30px;
+        font-family: 'Playfair Display', serif;
+        text-shadow: 0 2px 8px rgba(255, 77, 136, 0.25);
+    }
+
+    .subtitle {
+        color: #b30059;
+        font-size: 16px;
+        margin-bottom: 25px;
+        opacity: 0.85;
+    }
+
+    input {
+        width: 100%;
+        padding: 15px;
+        border-radius: 20px;
+        border: 2px solid #ff9ac7;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+        background: #fff0f7;
+        box-shadow: 0 0 12px rgba(255, 77, 136, 0.2);
+    }
+    input:focus {
+        border-color: #ff4d88;
+        box-shadow: 0 0 18px rgba(255, 77, 136, 0.5);
+        background: #fff2fa;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 18px;
+        background: linear-gradient(135deg, #ff4d88, #ff82b4);
+        border: none;
+        color: white;
+        font-size: 17px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: 600;
+        box-shadow: 0 6px 16px rgba(255,77,136,0.25);
+    }
+    button:hover {
+        opacity: 0.9;
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(255,77,136,0.35);
+    }
+
+    .result {
+        margin-top: 22px;
+        background: #fff0f7;
+        padding: 20px;
+        border-radius: 18px;
+        font-size: 17px;
+        color: #cc0066;
+        line-height: 1.5;
+        min-height: 50px;
+        animation: fadeIn 1s ease-in-out;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(255, 77, 136, 0.15);
+    }
+
+    /* Floating Hearts */
+    .heart {
+        position: absolute;
+        font-size: 18px;
+        animation: floatHearts 5s linear infinite;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    @keyframes floatHearts {
+        0% { transform: translateY(0) scale(0.8); opacity: 0.5; }
+        50% { transform: translateY(-100px) scale(1.1); opacity: 1; }
+        100% { transform: translateY(-200px) scale(0.9); opacity: 0; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Hi Ayza 💗</h2>
+    <div class="subtitle">Tell me your mood today…</div>
+
+    <input id="mood" placeholder="Type your mood here...">
+    <button onclick="detectMood()">Check Mood ✨</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function detectMood() {
+    let mood = document.getElementById("mood").value.toLowerCase();
+    let msg = "";
+
+    if (mood.includes("sad")) {
+        msg = "Oh no, sweet Ayza… Sending you a warm hug ❤️ You deserve only softness and smiles.";
+    } 
+    else if (mood.includes("tired")) {
+        msg = "Take it easy, beautiful Ayza 🌙 Your mind and heart deserve rest.";
+    }
+    else if (mood.includes("happy") || mood.includes("good") || mood.includes("great")) {
+        msg = "Yayyy! Love that for you, Ayza ✨ Your smile makes everything brighter 💕";
+    }
+    else if (mood.trim() === "") {
+        msg = "Tell me how you're feeling, Ayza 🌸";
+    }
+    else {
+        msg = "Whatever you're feeling… you're doing amazing, Ayza 💗 Keep going.";
+    }
+
+    document.getElementById("result").innerText = msg;
+
+    createHearts();
+}
+
+// Floating heart animation
+function createHearts() {
+    for(let i=0; i<6; i++){
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "💖";
+        heart.style.left = Math.random()*90 + "vw";
+        heart.style.bottom = "-20px";
+        heart.style.fontSize = (12 + Math.random()*16) + "px";
+        document.body.appendChild(heart);
+        setTimeout(()=> heart.remove(), 5000);
+    }
+}
+</script>
+
+</body>
+</html>
